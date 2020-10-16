@@ -11,25 +11,37 @@
     } catch(PDOException $e){
         echo $e->getMessage();
     }
+    include('header.php');
 ?>
-<table>
-    <tr>
-        <th>Date de reception:</th>
-        <td><?php echo $message['messageDate'];?></td>
-    </tr>
-    <tr>
-        <th>Expediteur:</th>
-        <td><?php echo $message['sender'];?></td>
-    </tr>
-    <tr>
-        <th>Sujet:</th>
-        <td><?php echo $message['subject'];?></td>
-    </tr>
-    <tr>
-        <th>Message:</th>
-        <td><pre><?php echo $message['messageContent']?></pre></td>
-    </tr>
-</table>
-<a href="newEmail.php?id=<?php echo $_GET['id'] ?>">Repondre</a><br/>
-<a href="delMessage.php?id=<?php echo $_GET['id']?>">Supprimer</a><br/>
-<a href="index.php">Retour</a>
+<div class="container pl-5 ml-5">
+    <div class="row">
+        <div class="col-8">
+            <table class="table">
+                <tr>
+                    <th>Date de reception:</th>
+                    <td><?php echo $message['messageDate'];?></td>
+                </tr>
+                <tr>
+                    <th>Expediteur:</th>
+                    <td><?php echo $message['sender'];?></td>
+                </tr>
+                <tr>
+                    <th>Sujet:</th>
+                    <td><?php echo $message['subject'];?></td>
+                </tr>
+                <tr>
+                    <th>Message:</th>
+                    <td><?php echo $message['messageContent']?></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-4">
+            <div class="btn-group-vertical btn-group btn-outline-dark pt-1">
+                <a href="newEmail.php?id=<?php echo $_GET['id'] ?>" class="btn btn-secondary" role="button">Repondre</a>
+                <a href="delMessage.php?id=<?php echo $_GET['id']?>" class="btn btn-secondary" role="button">Supprimer</a>
+            </div>
+        </div>
+    </div>
+    <a href="index.php" class="btn btn-primary" role="button">Retour</a>
+</div>
+<?php include('footer.php') ?>

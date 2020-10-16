@@ -11,25 +11,51 @@
     } catch(PDOException $e){
         echo $e->getMessage();
     }
+    include('header.php');
 ?>
-<a href="newUser.php">Créer un nouvel utilisateur</a>
-<style>
-    #t01 tbody tr:nth-child(even) {
-        background-color: #eee;
-    }
-    #t01 tbody tr:nth-child(odd) {
-        background-color: #fff;
-    }
-    #t01 thead {
-        background-color: black;
-        color: white;
-    }
-</style>
-<table id="t01">
-    <thead>
+<?php if(isset($_SESSION['userModified']) && $_SESSION['userModified'] === true)
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Utilisateur modifié !
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+else if(isset($_SESSION['userModified']) && $_SESSION['userModified'] === false)
+    echo '<div class="alert alert-alert alert-dismissible fade show" role="alert">
+                  <strong>Erreur: </strong> l'."'".'utilisateur n'."'".'a pas pu être modifié. Veuillez réessayer plus tard.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+unset($_SESSION['userModified']); ?>
+<?php if(isset($_SESSION['userDeleted']) && $_SESSION['userDeleted'] === true)
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Utilisateur supprimé !
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+else if(isset($_SESSION['userDeleted']) && $_SESSION['userDeleted'] === false)
+    echo '<div class="alert alert-alert alert-dismissible fade show" role="alert">
+                  <strong>Erreur: </strong> l'."'".'utilisateur n'."'".'a pas pu être supprimé. Veuillez réessayer plus tard.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+unset($_SESSION['userDeleted']); ?>
+<?php if(isset($_SESSION['userAdded']) && $_SESSION['userDeleted'] === true)
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                  Nouvel Utilisateur ajouté !
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>';
+unset($_SESSION['userAdded']); ?>
+<table id="t01" class="table">
+    <thead class="thead-light">
     <tr>
-        <th>Utilisateur</th>
-        <th>Actions</th>
+        <th scope="col">Utilisateur</th>
+        <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -38,25 +64,16 @@
         echo "<tr>";
         echo "<td>".$u['username']."</td>";
         echo "<td>";
-        echo "<ul>";
-        echo "<li><a href='modifyUser.php?username=".$u['username']."'>Modifier l'utilisateur</a></li>";
-        echo "<li><a href='delUser.php?username=".$u['username']."'>Supprimer l'utilisateur</a></li>";
-        echo "</ul>";
+        echo '<div class="btn-group-vertical btn-group-sm btn-outline-dark pt-1">
+                <a href="modifyUser.php?username='.$u['username'].'" class="btn btn-secondary" role="button">Modifier l'."'".'utilisateur</a>
+                <a href="delUser.php?username='.$u['username'].'" class="btn btn-secondary" role="button">Supprimer l'."'".'utilisateur</a>
+            </div>';
         echo "</td>";
         echo "</tr>";
     }
     ?>
     </tbody>
 </table>
-<?php if(isset($_SESSION['userModified']) && $_SESSION['userModified'] === true)
-    echo "<br/>Utilisateur modifié !<br/>";
-else if(isset($_SESSION['userModified']) && $_SESSION['userModified'] === false)
-    echo "<br/>Erreur: impossible de modifier cet utilisateur.<br/>";
-unset($_SESSION['userModified']); ?>
-
-<?php if(isset($_SESSION['userDeleted']) && $_SESSION['userDeleted'] === true)
-    echo "<br/>Utilisateur supprimé !<br/>";
-else if(isset($_SESSION['userDeleted']) && $_SESSION['userDeleted'] === false)
-    echo "<br/>Erreur: impossible de supprimer cet utilisateur.<br/>";
-unset($_SESSION['userDeleted']); ?>
-<a href="index.php">Retour aux messages</a>
+<a href="newUser.php" class="btn btn-primary" role="button">Créer un nouvel utilisateur</a>
+<a href="index.php" class="btn btn-primary" role="button">Retour</a>
+<?php include('footer.php') ?>

@@ -13,7 +13,7 @@ try{
     unset($_SESSION['newUserpass']);
     unset($_SESSION['newUservalidity']);
     unset($_SESSION['newUserrole']);
-    header('location: newUser.php');
+    header('location: manageUser.php');
 } catch(PDOException $e){
     echo $e->getMessage();
 }

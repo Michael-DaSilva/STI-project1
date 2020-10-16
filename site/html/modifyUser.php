@@ -25,13 +25,36 @@
         $validity = $checkuser['validity'];
         $role = $checkuser['role_id'];
     }
+    include('header.php');
 ?>
-
-<form method="post">
-    Nom d'utilisateur: <?php echo $user; $_SESSION['user'] = $user ?><br>
-    Password: <input type="password" name="password"><br>
-    Validité du compte: <input type="radio" name="validity" value="1" <?php if($validity == 1) echo "checked"?>>Compte actif   <input type="radio" name="validity" value="0" <?php if($validity == 0) echo "checked"?>>Compte inactif<br/>
-    Rôle du compte: <input type="radio" name="role" value="1" <?php if($role == 1) echo "checked"?>>Collaborateur   <input type="radio" name="role" value="2" <?php if($role == 2) echo "checked"?>>Administrateur<br/>
-    <input type="submit" name="submitModifiedUser" value="Modifier">
-</form>
-<a href="manageUser.php">Retour</a>
+<div class="row px-5 mx-5">
+    <form class="mx-5 px-4">
+        <div class="form-row">
+            <label for="username">Nom d'utilisateur:</label>
+            <?php echo $user; $_SESSION['user'] = $user ?>
+        </div>
+        <div class="form-row">
+            <label for="pass">Password:</label>
+            <input type="password" class="form-control" id="pass" name="password" placeholder="Mot de passe">
+        </div>
+        <div class="form-row">
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validN" name="validity" value="0" <?php if($validity == 0) echo "checked"?>>
+                <label class="form-check-label" for="validN">Compte inactif</label>
+                <input type="radio" class="form-check-input" id="validY" name="validity" value="1" <?php if($validity == 1) echo "checked"?>>
+                <label class="form-check-label" for="validY">Compte actif</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="roleC" name="role" value="1" <?php if($role == 1) echo "checked"?>>
+                <label class="form-check-label" for="roleC">Collaborateur</label>
+                <input type="radio" class="form-check-input" id="roleA" name="role" value="2" <?php if($role == 2) echo "checked"?>>
+                <label class="form-check-label" for="roleA">Administrateur</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" formmethod="post" name="submitModifiedUser">Modifier l'utilisateur</button>
+        <a href="manageUser.php" class="btn btn-primary" role="button">Annuler</a>
+    </form>
+</div>
+<?php include('footer.php') ?>

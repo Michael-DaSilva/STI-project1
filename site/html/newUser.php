@@ -38,17 +38,36 @@
         }
         header("location: addUser.php");
     }
+    include('header.php');
 ?>
-
-<form method="post">
-    Nom d'utilisateur: <input type="text" name="user"><?php echo $user_err; ?><br>
-    Password: <input type="password" name="password"><?php echo $password_err; ?><br>
-    Validité du compte: <input type="radio" name="validity" value="1">Compte actif   <input type="radio" name="validity" value="0" checked>Compte inactif<br/>
-    Rôle du compte: <input type="radio" name="role" value="1" checked>Collaborateur   <input type="radio" name="role" value="2">Administrateur<br/>
-    <input type="submit" name="submitNewUser" value="Ajouter">
-</form>
-<?php if(isset($_SESSION['userAdded']) && $_SESSION['userAdded'] === true){
-    echo "<h4>Nouvel utilisateur ajouté !</h4>";
-    unset($_SESSION['userAdded']);
-} ?>
-<a href="manageUser.php">Retour</a>
+<div class="row px-5 mx-5">
+    <form class="mx-5 px-4">
+        <div class="form-row">
+            <label for="username">Nom d'utilisateur:</label>
+            <input type="text" class="form-control" id="username" name="user" placeholder="Nom d'utilisateur">
+        </div>
+        <div class="form-row">
+            <label for="pass">Password:</label>
+            <input type="password" class="form-control" id="pass" name="password" placeholder="Mot de passe">
+        </div>
+        <div class="form-row">
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validN" name="validity" value="0" checked>
+                <label class="form-check-label" for="validN">Compte inactif</label>
+                <input type="radio" class="form-check-input" id="validY" name="validity" value="1">
+                <label class="form-check-label" for="validY">Compte actif</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="roleC" name="role" value="1" checked>
+                <label class="form-check-label" for="roleC">Collaborateur</label>
+                <input type="radio" class="form-check-input" id="roleA" name="role" value="2">
+                <label class="form-check-label" for="roleA">Administrateur</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" formmethod="post" name="submitNewUser">Ajouter l'utilisateur</button>
+        <a href="manageUser.php" class="btn btn-primary" role="button">Annuler</a>
+    </form>
+</div>
+<?php include('footer.php') ?>
